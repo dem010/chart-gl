@@ -1,0 +1,42 @@
+.chart-top-title {
+  grid-column: 1 / 5;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+}
+.chart-top-title.empty {
+  height: 0;
+}
+.chart-left-title {
+  grid-column: 1;
+  grid-row: 1 / 5;
+  align-self: center;
+  justify-self: center;
+
+  display: flex;
+  transform: rotate(-90deg);
+  width: calc(1em - 1px);
+  white-space: nowrap;
+  justify-content: center;
+}
+.chart-left-title.empty {
+  height: 0;
+}
+.chart-right-title {
+  grid-column: 5;
+  grid-row: 1 / 5;
+  align-self: center;
+  justify-self: center;
+}
+.chart-right-title.empty {
+  height: 0;
+}
+.chart-bottom-title {
+  grid-column: 1 / 5;
+  grid-row: 5;
+  align-self: center;
+  justify-self: center;
+}
+.chart-bottom-title.empty {
+  height: 0;
+}

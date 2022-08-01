@@ -1,0 +1,27 @@
+/**
+ * @license React
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+//! return () => ...
+
+//! this.ticks.push(0)
+
+//! для touch двигать и масштабировать сделать настраиваемым, либо двигать/масштабировать, либо движение курсора
+
+//! для оси X
+
+//! ищу ближайшие точки
+
+//! предусмотреть фун-ию формат
+
+//! только для splitted
+
+//! тут высчитывается в зависимости от размера шрифта (наверно)
+
+//! уменьшить кол-во вызовов фун-ии до минимума, либо ввести параметр отзывчивости

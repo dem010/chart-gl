@@ -1,0 +1,131 @@
+.chart-container {
+  display: grid;
+  grid-template-columns: minmax(0, max-content) minmax(0, max-content) 1fr minmax(0, max-content) minmax(0, max-content);
+  grid-template-rows: minmax(0, max-content) auto 1fr auto minmax(0, max-content);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chart-gl-canvas,
+.chart-grid-canvas {
+  position: relative;
+  grid-column: 3;
+  grid-row: 3;
+  margin: 0;
+  font-size: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+.chart-grid-canvas {
+  pointer-events: none;
+  z-index: 0;
+}
+/*
+.log {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  padding: 10px;
+  color: #fff;
+  background: #000000aa;
+}
+*/
+
+.chart-axis {
+  color: #fff;
+}
+
+.chart-top-axis {
+  position: relative;
+  grid-column: 2/4;
+  grid-row: 2;
+  /*height: 100px;*/
+}
+.chart-top-axis.empty {
+  height: 0;
+}
+.chart-left-axis {
+  position: relative;
+  grid-column: 2;
+  grid-row: 3;
+  margin: 0;
+  font-size: 0;
+}
+.chart-left-axis.empty {
+  height: 0;
+}
+.chart-right-axis {
+  position: relative;
+  grid-column: 4;
+  grid-row: 3;
+}
+.chart-right-axis.empty {
+  height: 0;
+}
+.chart-bottom-axis {
+  position: relative;
+  grid-column: 2/4;
+  grid-row: 4;
+  margin: 0;
+  font-size: 0;
+}
+.chart-bottom-axis.empty {
+  height: 0;
+}
+
+.chart-left-axis canvas,
+.chart-right-axis canvas {
+  position: absolute;
+  /*height: 100%;*/
+}
+.chart-bottom-axis canvas,
+.chart-top-axis canvas {
+  position: absolute;
+  /*width: 100%;*/
+  /*height: 100px;*/
+}
+
+.chart-top-title {
+  grid-column: 1 / 5;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+}
+.chart-top-title.empty {
+  height: 0;
+}
+.chart-left-title {
+  grid-column: 1;
+  grid-row: 1 / 5;
+  align-self: center;
+  justify-self: center;
+
+  display: flex;
+  transform: rotate(-90deg);
+  width: calc(1em - 1px);
+  white-space: nowrap;
+  justify-content: center;
+}
+.chart-left-title.empty {
+  height: 0;
+}
+.chart-right-title {
+  grid-column: 5;
+  grid-row: 1 / 5;
+  align-self: center;
+  justify-self: center;
+}
+.chart-right-title.empty {
+  height: 0;
+}
+.chart-bottom-title {
+  grid-column: 1 / 5;
+  grid-row: 5;
+  align-self: center;
+  justify-self: center;
+}
+.chart-bottom-title.empty {
+  height: 0;
+}
+

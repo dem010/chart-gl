@@ -1,0 +1,53 @@
+.chart-axis {
+  color: #fff;
+}
+
+.chart-top-axis {
+  position: relative;
+  grid-column: 2/4;
+  grid-row: 2;
+  /*height: 100px;*/
+}
+.chart-top-axis.empty {
+  height: 0;
+}
+.chart-left-axis {
+  position: relative;
+  grid-column: 2;
+  grid-row: 3;
+  margin: 0;
+  font-size: 0;
+}
+.chart-left-axis.empty {
+  height: 0;
+}
+.chart-right-axis {
+  position: relative;
+  grid-column: 4;
+  grid-row: 3;
+}
+.chart-right-axis.empty {
+  height: 0;
+}
+.chart-bottom-axis {
+  position: relative;
+  grid-column: 2/4;
+  grid-row: 4;
+  margin: 0;
+  font-size: 0;
+}
+.chart-bottom-axis.empty {
+  height: 0;
+}
+
+.chart-left-axis canvas,
+.chart-right-axis canvas {
+  position: absolute;
+  /*height: 100%;*/
+}
+.chart-bottom-axis canvas,
+.chart-top-axis canvas {
+  position: absolute;
+  /*width: 100%;*/
+  /*height: 100px;*/
+}
