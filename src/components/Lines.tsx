@@ -4,7 +4,7 @@ import { ChartContext } from './Area/Area'
 import LinesChart from '../services/LinesChart'
 import { ChartProperties, Series } from '../types/chart'
 
-interface LinesProps {
+export interface LinesProps {
   series: Series[]
   sizeCanvas?: [Number, number]
 }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ChartContext } from '../components/Area/Area'
 import { ChartProperties, Point, SeriesPoint } from '../types/chart'
 
-interface IFindNearby {
+export interface IFindNearby {
   mousepoint: Point
   nearestPoint?: { [key: string]: SeriesPoint }
 }

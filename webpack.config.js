@@ -8,12 +8,12 @@ module.exports = {
   output: {
     path: path.resolve('dist'),
     filename: 'index.js',
-    libraryTarget: 'commonjs-module',
+    libraryTarget: 'umd',
   },
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: 'index.css',
       chunkFilename: '[id].css',
     }),
   ],

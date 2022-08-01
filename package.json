@@ -9,7 +9,7 @@
     "react"
   ],
   "scripts": {
-    "build": "npx webpack --mode production"
+    "build": "npx webpack --mode production && Copy package.json .\\dist\\"
   },
   "author": "",
   "license": "ISC",

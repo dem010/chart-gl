@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import AxisControlSplit from '../../services/AxisControlSplit'
+import { AxisControlSplit } from '../../services/AxisControlSplit'
 import { ChartContext } from '../Area/Area'
 import './axis.css'
 import { AxisControlMerge } from '../../services/AxisControlMerge'

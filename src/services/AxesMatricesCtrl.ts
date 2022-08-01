@@ -2,15 +2,15 @@ import { AlignType, AxisTypeType, ChartSeries } from '../types/chart'
 import Chart from './Chart'
 import MatrixControl from './MatrixControl'
 
-interface IXAxesMC {
+export interface IXAxesMC {
   top: MatrixControl[]
   bottom: MatrixControl[]
 }
-interface IYAxesMC {
+export interface IYAxesMC {
   left: MatrixControl[]
   right: MatrixControl[]
 }
-interface INamedMC {
+export interface INamedMC {
   [key: string]: MatrixControl
 }
 

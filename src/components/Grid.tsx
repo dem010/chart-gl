@@ -5,7 +5,7 @@ import { RefX, RefY } from '../types/chart'
 import { FC } from 'react'
 import Overlay from '../services/Overlay'
 
-interface GridProps {
+export interface GridProps {
   color?: string
   refX?: RefX
   refY?: RefY
@@ -20,7 +20,7 @@ const Grid: FC<GridProps> = ({ color = '#555', refY = 'left', refX = 'bottom' })
   useEffect(() => {
     if (canvas.current && chartProperties && chartProperties.options.axes.length) {
       chartProperties.options.axes.forEach((axis) => {
-        if (axis.axisOptions.align === refY || axis.axisOptions.align === refX)
+        if (canvas.current && (axis.axisOptions.align === refY || axis.axisOptions.align === refX))
           setOverlay(axis.createGrid(canvas.current, color))
       })
     }

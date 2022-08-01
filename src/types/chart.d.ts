@@ -1,3 +1,4 @@
+import { AxisControl } from '../services/AxisControl'
 import Chart from '../services/Chart'
 import { ChartData } from '../services/ChartData'
 import Overlay from '../services/Overlay'
@@ -17,7 +18,7 @@ export interface Point {
   y: number
 }
 
-interface SeriesPoint {
+export interface SeriesPoint {
   label?: string
   point: Point
 }

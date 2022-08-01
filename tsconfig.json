@@ -6,12 +6,12 @@
     "module": "es6",
     "target": "es6",
     "jsx": "react-jsx",
-    "declaration": true,
+    "declaration": false,
     "esModuleInterop": true,
     "allowJs": true,
     "moduleResolution": "node"
   },
   "include": [
-    "src"
+    "./src/**/*"
   ]
 }

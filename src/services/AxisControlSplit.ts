@@ -2,7 +2,7 @@ import { AxisParameters } from '../types/chart'
 import { subAlpha } from '../utils/subAlpha'
 import { AxisControl, YAXIS_SPACING } from './AxisControl'
 
-export default class AxisControlSplit extends AxisControl {
+export class AxisControlSplit extends AxisControl {
   constructor(canvas: HTMLCanvasElement, { align, type, domain, format, style, chartProperties }: AxisParameters) {
     super(canvas, { align, type, domain, format, style, chartProperties })
 

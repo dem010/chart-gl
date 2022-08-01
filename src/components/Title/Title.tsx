@@ -4,7 +4,7 @@ import { ChartContext } from '../Area/Area'
 import './title.css'
 import { AlignType } from '../../types/chart'
 
-interface TitleProps {
+export interface TitleProps {
   className?: string
   align: AlignType
   style: React.CSSProperties | undefined
