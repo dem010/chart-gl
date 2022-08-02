@@ -5,13 +5,14 @@
     "noImplicitAny": true,
     "module": "es6",
     "target": "es6",
-    "jsx": "react-jsx",
+    "jsx": "react",
+    "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,
     "allowJs": true,
     "moduleResolution": "node"
   },
   "include": [
-    "./src/**/*"
+    "./dev/**/*", "./src/**/*"
   ]
 }
