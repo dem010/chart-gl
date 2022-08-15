@@ -31,7 +31,6 @@ const xFormat = (v) => {
   )}:${pos(2, dt.getSeconds())}.${pos(3, dt.getMilliseconds())}`
 }*/
 
-//TODO: переделать инициализацию (пока не надо 🙄)
 //TODO: добавить проверку, что если присутствует split, то несколько осей (left/right) запрещено
 function App() {
   const [split, setSplit] = useState(false)
