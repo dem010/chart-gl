@@ -18,7 +18,6 @@ export default class LinesChart extends Chart {
 
   initGl() {
     const { gl } = this
-
     if (!gl) return
 
     const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource)

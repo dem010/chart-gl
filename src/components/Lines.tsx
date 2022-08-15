@@ -9,7 +9,6 @@ export interface LinesProps {
   sizeCanvas?: [Number, number]
 }
 
-// TODO: добавить glCanvas border. реализовать при помощи box-shadow чтобы не мешал axis
 const Lines: FC<LinesProps> = ({ series, sizeCanvas }) => {
   const chartProperties = useContext<ChartProperties | null>(ChartContext)
   const canvas = useRef<HTMLCanvasElement>(null)

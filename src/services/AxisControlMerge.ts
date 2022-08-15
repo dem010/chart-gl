@@ -11,7 +11,7 @@ export class AxisControlMerge extends AxisControl {
   constructor(canvas: HTMLCanvasElement, { align, type, domain, format, style, chartProperties }: AxisParameters) {
     super(canvas, { align, type, domain, format, style, chartProperties })
 
-    this.chartOptions && this.chartOptions.axes.push(this)
+    this.chartOptions?.axes.push(this)
     this.setOptionsParameters()
 
     this.tuneTickGenerator()
@@ -31,16 +31,13 @@ export class AxisControlMerge extends AxisControl {
 
   enablePan() {
     const { type, align } = this.axisOptions
-    this.chart && this.chart.axesMatricesCtrl.forEach((mCtrl) => mCtrl.disable(type, false), type, align)
+    this.chart?.axesMatricesCtrl.forEach((mCtrl) => mCtrl.disable(type, false), type, align)
   }
 
   setOptionsParameters() {
-    if (!this.chartOptions) return
-    const series = this.chartOptions.series
+    const series = this.chartOptions?.series
     if (!series) return
     const { domain, type, align } = this.axisOptions
-
-    //this.type = type
 
     let minX = series[0].data.minmaxX.min
     let maxX = series[0].data.minmaxX.max
@@ -69,9 +66,8 @@ export class AxisControlMerge extends AxisControl {
 
   /** Спозиционировать график в зависимости от заданного/не заданного domain */
   setVisibilityArea() {
-    if (!this.chart) return
-    const gl = this.chart.getGL()
-    if (!gl) return
+    const gl = this.chart?.getGL()
+    if (!this.chart || !gl) return
 
     let cWidth = gl.canvas.width
     let cHeight = gl.canvas.height
@@ -94,16 +90,14 @@ export class AxisControlMerge extends AxisControl {
   }
 
   drawYAxis() {
-    if (!this.chart) return
-    const gl = this.chart.getGL()
-    if (!gl) return
+    const gl = this.chart?.getGL()
+    const ctx = this.ctx
+    if (!this.chart || !gl || !ctx) return
 
     const { align } = this.axisOptions
     let cHeight = gl.canvas.height
     const translateY = -(this.max[0] - this.min[0]) / 2 - this.min[0]
 
-    if (!this.ctx) return
-    const ctx = this.ctx
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     ctx.beginPath()
     ctx.moveTo(align === 'left' ? this.maxWidth : 0, 0)
@@ -175,20 +169,14 @@ export class AxisControlMerge extends AxisControl {
 
     size *= magn
 
-    //this.delta = delta
-    //this.decPlaces = Math.max(0, maxDec !== null ? maxDec : decPlaces)
-    //this.tickSize = size
-
     this.ticks = [this.tickGenerator(this.min[0], this.max[0], size)]
     this.setAxisSize()
-    //console.log(this.ticks)
   }
 
   update() {
-    if (!this.chart) return
-    const gl = this.chart.getGL()
-    const mCtrl = this.chart.axesMatricesCtrl.getOneAxis(this.type, this.axisOptions.align)
-    if (!mCtrl || !gl) return
+    const gl = this.chart?.getGL()
+    const mCtrl = this.chart?.axesMatricesCtrl.getOneAxis(this.type, this.axisOptions.align)
+    if (!this.chart || !mCtrl || !gl) return
 
     const { translateX, translateY, scaleX, scaleY, originX, originY } = mCtrl.getTransformData()
 

@@ -6,7 +6,7 @@ export class AxisControlSplit extends AxisControl {
   constructor(canvas: HTMLCanvasElement, { align, type, domain, format, style, chartProperties }: AxisParameters) {
     super(canvas, { align, type, domain, format, style, chartProperties })
 
-    this.chartOptions && this.chartOptions.axes.push(this)
+    this.chartOptions?.axes.push(this)
 
     /** минимум по всей серии */
     this.min = []
@@ -33,13 +33,11 @@ export class AxisControlSplit extends AxisControl {
 
   disablePan() {
     const { type, align } = this.axisOptions
-    this.chart && this.chart.axesMatricesCtrl.forEach((mCtrl) => mCtrl.disable(type, true), type, align)
+    this.chart?.axesMatricesCtrl.forEach((mCtrl) => mCtrl.disable(type, true), type, align)
   }
 
   setOptionsParameters() {
-    if (!this.chartOptions) return
-
-    const { series } = this.chartOptions
+    const series = this.chartOptions?.series
     const { type, align } = this.axisOptions
 
     if (!series) return
@@ -66,9 +64,8 @@ export class AxisControlSplit extends AxisControl {
 
   /** Задать ширину/высоту оси в зависимости от размеров тиков оси */
   setAxisSize() {
-    if (!this.chartOptions || !this.chart) return
-    const gl = this.chart.getGL()
-    if (!gl) return
+    const gl = this.chart?.getGL()
+    if (!this.chartOptions || !gl) return
 
     const { align } = this.axisOptions
     const { container, areaGrid } = this.chartOptions
@@ -82,9 +79,7 @@ export class AxisControlSplit extends AxisControl {
       if (container.current) {
         if (align === 'left') areaGrid.leftAxis = this.maxWidth + 'px'
         if (align === 'right') areaGrid.rightAxis = this.maxWidth + 'px'
-        if (this.canvas.parentElement) this.canvas.parentElement.style.width = this.maxWidth + 'px'
-        //this.canvas.width = this.maxWidth
-        //this.canvas.parentElement.style.height = gl.canvas.height + 'px'
+        this.canvas.parentElement!.style.width = this.maxWidth + 'px'
         this.canvas.height = gl.canvas.height
       }
     }
@@ -108,9 +103,7 @@ export class AxisControlSplit extends AxisControl {
         if (align === 'bottom') areaGrid.bottomAxis = this.maxWidth + 'px'
 
         container.current.style.gridTemplateRows = `${areaGrid.topTitle} ${areaGrid.topAxis} auto ${areaGrid.bottomAxis} ${areaGrid.bottomTitle}`
-        if (this.canvas.parentElement) this.canvas.parentElement.style.height = this.maxWidth + 'px'
-        //this.canvas.height = this.maxWidth
-        //this.canvas.parentElement.style.width = gl.canvas.width
+        this.canvas.parentElement!.style.height = this.maxWidth + 'px'
         this.canvas.width = gl.canvas.width + leftOffset
       }
     }
@@ -124,18 +117,18 @@ export class AxisControlSplit extends AxisControl {
     const width = canvas.width / this.axisSeries.length
     const height = canvas.height / this.axisSeries.length
 
+    /** кол-во тиков */
     const countTicks = 0.3 * Math.sqrt(type === 'x' ? width : height)
 
     for (let [i, series] of this.axisSeries.entries()) {
       const mCtrl = this.getMatrix(series)
-      //const min = mCtrl['min' + (type === 'x' ? 'X' : 'Y')] || this.min[i]
-      //const max = mCtrl['max' + (type === 'x' ? 'X' : 'Y')] || this.max[i]
       //* пока split не применяется для X
       const min = mCtrl?.minY || this.min[i]
       const max = mCtrl?.maxY || this.max[i]
 
+      /** расстояние между тиками */
       const delta = (max - min) / countTicks
-      /** цифр после запятой */
+      /** знаков после запятой до 1 цифры > 0/до запятой(если больше 0) */
       let decPlaces = -Math.floor(Math.log(delta) / Math.LN10)
 
       const magn = Math.pow(10, -decPlaces)
@@ -158,14 +151,9 @@ export class AxisControlSplit extends AxisControl {
 
       size *= magn
 
-      //this.delta = delta
-      //this.decPlaces = Math.max(0, maxDec !== null ? maxDec : decPlaces)
-      //this.tickSize[i] = size
-
       this.ticks[i] = this.tickGenerator(min, max, size)
     }
     this.setAxisSize()
-    //console.log(this.ticks)
   }
 
   update() {
@@ -185,16 +173,15 @@ export class AxisControlSplit extends AxisControl {
     window.requestAnimationFrame(() => {
       this.tuneTickGenerator()
       this.drawAxis()
-      this.chartOptions && this.chartOptions.overlay && this.chartOptions.overlay.update()
+      this.chartOptions?.overlay?.update()
     })
   }
 
   /** Спозиционировать график в зависимости от заданного/не заданного domain */
   setVisibilityArea() {
-    if (!this.chart) return
-    const gl = this.chart.getGL()
+    const gl = this.chart?.getGL()
     if (!gl) return
-    // let cWidth = gl.canvas.width
+
     let cHeight = gl.canvas.height
     cHeight = cHeight / this.axisSeries.length
 
@@ -220,16 +207,15 @@ export class AxisControlSplit extends AxisControl {
   }
 
   drawYAxis() {
-    if (!this.chart || !this.ctx) return
-    const gl = this.chart.getGL()
-    if (!gl) return
+    const gl = this.chart?.getGL()
+    const ctx = this.ctx
+    if (!gl || !ctx) return
 
     const { align } = this.axisOptions
     let cHeight = gl.canvas.height
     //размер оси каждой серии
     cHeight = cHeight / this.axisSeries.length
 
-    const ctx = this.ctx
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     //рисую фон

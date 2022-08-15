@@ -19,10 +19,6 @@ export function useFindNearestPoint(radius: number) {
   const [nearestPoint, setNearestPoint] = useState<IFindNearby>({ mousepoint: { x: 0, y: 0 } })
 
   const handlerMouseMove = (event: MouseEvent) => {
-    //! уменьшить кол-во вызовов фун-ии до минимума, либо ввести параметр отзывчивости
-    //вести поиск в радиусе n пикселей от курсора для всех серий
-    //
-    //debugger
     const offset = chart?.canvas.getBoundingClientRect()
     if (offset) {
       const mousepoint = { x: event.pageX, y: event.pageY }

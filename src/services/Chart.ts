@@ -91,10 +91,8 @@ export default class Chart {
   }
 
   setColor(color: string) {
-    if (this.gl) {
-      const glColor = nameToGlRGB(color)
-      this.gl.uniform4f(this.colorUniformLocation, ...glColor)
-    }
+    const glColor = nameToGlRGB(color)
+    this.gl?.uniform4f(this.colorUniformLocation, ...glColor)
   }
 
   resize(size?: [number, number]) {
@@ -150,15 +148,13 @@ export default class Chart {
   }
 
   drawSeries() {
-    if (this.series) {
-      this.series.forEach((s) => {
-        if (typeof (s.data as ChartData).getData !== 'undefined') {
-          this.setColor(s.color)
-          this.setData((s.data as ChartData).getData())
-          this.draw(this.axesMatricesCtrl.series[s.refX + s.refY + s.id])
-        }
-      })
-    }
+    this.series?.forEach((s) => {
+      if (typeof (s.data as ChartData).getData !== 'undefined') {
+        this.setColor(s.color)
+        this.setData((s.data as ChartData).getData())
+        this.draw(this.axesMatricesCtrl.series[s.refX + s.refY + s.id])
+      }
+    })
   }
 
   setData(data: Float32Array): void {}

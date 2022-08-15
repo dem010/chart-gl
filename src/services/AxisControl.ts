@@ -46,13 +46,10 @@ export class AxisControl {
     this.ctx = null
     this.axisOptions.format = undefined
     //сброс матриц в первоначальное состояние
-    this.chart &&
-      this.chart.axesMatricesCtrl.forEach((mCtrl) => mCtrl.reset(this.type), this.type, this.axisOptions.align)
+    this.chart?.axesMatricesCtrl.forEach((mCtrl) => mCtrl.reset(this.type), this.type, this.axisOptions.align)
     this.chart = undefined
     //удаляю ось из оверлея
-    if (this.chartOptions && this.chartOptions.overlay) {
-      this.chartOptions.overlay.removeAxis(this)
-    }
+    this.chartOptions?.overlay?.removeAxis(this)
     //удаляю ось из массива осей графика
     if (this.chartOptions && this.chartOptions.axes.includes(this)) {
       this.chartOptions.axes.splice(this.chartOptions.axes.indexOf(this), 1)
@@ -62,13 +59,11 @@ export class AxisControl {
 
   /** Задать ширину/высоту оси в зависимости от размеров тиков оси */
   setAxisSize() {
-    if (!this.chartOptions || !this.chart) return
+    const gl = this.chart?.getGL()
+    if (!this.chartOptions || !this.chart || !gl) return
 
     const { align } = this.axisOptions
     const { container, areaGrid } = this.chartOptions
-    const gl = this.chart.getGL()
-
-    if (!gl) return
 
     //const {}
     let max = 0
@@ -118,9 +113,8 @@ export class AxisControl {
   }
 
   drawXAxis() {
-    if (!this.chartOptions || !this.chart) return
-    const gl = this.chart.getGL()
-    if (!gl) return
+    const gl = this.chart?.getGL()
+    if (!this.chartOptions || !this.chart || !gl) return
 
     const { align } = this.axisOptions
     let cWidth = gl.canvas.width
@@ -201,7 +195,7 @@ export class AxisControl {
         this.resizeCanvasToDisplaySize()
         this.tuneTickGenerator()
         this.drawAxis()
-        this.chartOptions && this.chartOptions.overlay && this.chartOptions.overlay.resize(size)
+        this.chartOptions?.overlay?.resize(size)
       })
     }
   }
