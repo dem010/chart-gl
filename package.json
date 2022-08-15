@@ -1,6 +1,6 @@
 {
-  "name": "react-chart-gl",
-  "version": "1.0.0",
+  "name": "chart-gl",
+  "version": "0.0.9",
   "description": "",
   "main": "index.js",
   "keywords": [
