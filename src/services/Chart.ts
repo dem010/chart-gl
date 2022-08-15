@@ -19,14 +19,6 @@ export default class Chart {
   protected panScale
   protected dataCount: number = 0
   protected projectionMatrix: Matrix4 = this.m4.translation(0, 0, 0)
-  /*translationMatrix = this.m4.translation(0, 0, 0)
-  scaleMatrix = this.m4.scaling(1, 1, 1)
-  matrix
-  scaleX = 1
-  scaleY = 1
-  translateX = 0
-  translateY = 0*/
-
   protected positionAttributeLocation: number | null = null
   protected matrixLocation: WebGLUniformLocation | null = null
   protected colorUniformLocation: WebGLUniformLocation | null = null

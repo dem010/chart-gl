@@ -19,6 +19,7 @@ const plugins = (dev) => {
   if (dev)
     plug.push(
       new HTMLWebpackPlugin({
+        favicon: './dev/favicon.png',
         template: './dev/index.html',
       })
     )
@@ -141,7 +142,7 @@ module.exports = (env) => {
     }
   } else {
     //result.optimization = optimization()
-    result.devtool = 'source-map'
+    result.devtool = 'cheap-module-source-map'
     result.devServer = { port: 3000 }
     /*result.externals = {
       react: 'React',

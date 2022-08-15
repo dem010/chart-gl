@@ -16,20 +16,18 @@ const Lines: FC<LinesProps> = ({ series, sizeCanvas }) => {
 
   const size = useResizeElement(canvas)
 
-  useLayoutEffect(() => {
-    if (chartProperties) {
-      let ch
-      const c = canvas.current
-      if (c && !chart && chartProperties.setProp) {
-        ch = new LinesChart(c, chartProperties)
-        setChart(ch)
-      }
+  useEffect(() => {
+    let ch: LinesChart | undefined
+    const c = canvas.current
+    if (c && (!chart || !chart.gl) && chartProperties && chartProperties.setProp) {
+      ch = new LinesChart(c, chartProperties)
+      setChart(ch)
     }
 
-    /*return (() => {
-      this && this.destroy()
-    }).bind(ch)*/
-  }, [chart, chartProperties])
+    /*return function() {
+      ch?.destroy()
+    }*/
+  }, [/*chart,*/ chartProperties])
 
   useEffect(() => {
     if (chart && chartProperties && chartProperties.setProp) {
@@ -40,7 +38,7 @@ const Lines: FC<LinesProps> = ({ series, sizeCanvas }) => {
       chart.setSeries(series)
       chartProperties.setProp({ ...chartProperties })
     }
-  }, [chart, series]) // eslint-disable-line
+  }, [chart, series])
 
   useEffect(() => {
     if (size && chart && chartProperties && chartProperties.setResizeCanvas) {
