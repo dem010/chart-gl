@@ -1,16 +1,17 @@
 # chart-gl
 
-# Введение
+# Introduction
 
-chart-gl библиотека для отображения графиков при помощи технологии WebGL.
-Основной целью библиотеки является отображение графиков с большим количеством точек, таких как осциллограммы, за счет ресурсов видеокарты.
+chart-gl is a library for displaying charts using WebGL technology.
 
-## Пример
+The main purpose of the library is to display graphs with a large number of points, such as waveforms.
+
+## Example
 
 ```jsx
 <Area>
   <Title align="top" style={{ color: '#fff' }}>
-    Осциллограмма
+    Waveform
   </Title>
   <Axis domain={[0, 2000]} />
   <Axis align="left" />
