@@ -12,36 +12,25 @@ export interface LinesProps {
 const Lines: FC<LinesProps> = ({ series, sizeCanvas }) => {
   const chartProperties = useContext<ChartProperties | null>(ChartContext)
   const canvas = useRef<HTMLCanvasElement>(null)
-  const [chart, setChart] = useState<LinesChart | null>(null)
+  const chart = chartProperties?.chart
 
   const size = useResizeElement(canvas)
 
   useEffect(() => {
-    let ch: LinesChart | undefined
-    const c = canvas.current
-    if (c && (!chart || !chart.gl) && chartProperties && chartProperties.setProp) {
-      ch = new LinesChart(c, chartProperties)
-      setChart(ch)
+    if (canvas.current && chartProperties && chartProperties.setProp && !chartProperties.chart) {
+      new LinesChart(canvas.current, chartProperties)
     }
-
-    /*return function() {
-      ch?.destroy()
-    }*/
-  }, [/*chart,*/ chartProperties])
+  }, [chartProperties])
 
   useEffect(() => {
-    if (chart && chartProperties && chartProperties.setProp) {
-      // const s = series.map((s) => {
-      //   s.data = new ChartData(s.data)
-      //   return s
-      // })
+    if (chartProperties && chartProperties.setProp && chart) {
       chart.setSeries(series)
       chartProperties.setProp({ ...chartProperties })
     }
   }, [chart, series])
 
   useEffect(() => {
-    if (size && chart && chartProperties && chartProperties.setResizeCanvas) {
+    if (size && chartProperties && chartProperties.setResizeCanvas && chart) {
       chartProperties.setResizeCanvas(size)
       chart.resize(size)
     }

@@ -2,10 +2,10 @@ import React, { FC, useContext, useEffect, useLayoutEffect, useRef, useState } f
 import PropTypes from 'prop-types'
 import { AxisControlSplit } from '../../services/AxisControlSplit'
 import { ChartContext } from '../Area/Area'
-import './axis.css'
 import { AxisControlMerge } from '../../services/AxisControlMerge'
 import { AlignType, AxisStyle } from '../../types/chart'
 import { AxisControl } from '../../services/AxisControl'
+import './axis.css'
 
 export interface AxisProps {
   align?: AlignType
@@ -67,7 +67,6 @@ const Axis: FC<AxisProps> = ({
             })
       )
     }
-    //! return () => ...
   }, [chart, series, split])
 
   useEffect(() => {
