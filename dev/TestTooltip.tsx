@@ -3,7 +3,7 @@ import { useFindNearestPoint } from '../src/'
 import { SeriesPoint } from '../src/types/chart'
 
 const TestTooltip = () => {
-  const { mousepoint, nearestPoint } = useFindNearestPoint(10)
+  const { buttons, mousepoint, nearestPoint } = useFindNearestPoint(10)
 
   const getNearestPoint = (name: string, nearestPoint?: SeriesPoint) => {
     if (nearestPoint)
@@ -32,7 +32,7 @@ const TestTooltip = () => {
     return result
   }
 
-  if (nearestPoint)
+  if (buttons !== 1 && nearestPoint)
     return (
       <div
         style={{

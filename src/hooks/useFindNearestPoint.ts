@@ -3,6 +3,7 @@ import { ChartContext } from '../components/Area/Area'
 import { ChartProperties, Point, SeriesPoint } from '../types/chart'
 
 export interface IFindNearby {
+  buttons: number
   mousepoint: Point
   nearestPoint?: { [key: string]: SeriesPoint }
 }
@@ -16,7 +17,7 @@ export interface IFindNearby {
 export function useFindNearestPoint(radius: number) {
   const chartProperties = useContext<ChartProperties | null>(ChartContext)
   const chart = chartProperties && chartProperties.chart
-  const [nearestPoint, setNearestPoint] = useState<IFindNearby>({ mousepoint: { x: 0, y: 0 } })
+  const [nearestPoint, setNearestPoint] = useState<IFindNearby>({ buttons: 0, mousepoint: { x: 0, y: 0 } })
 
   const handlerMouseMove = (event: MouseEvent) => {
     const offset = chart?.canvas.getBoundingClientRect()
@@ -28,8 +29,8 @@ export function useFindNearestPoint(radius: number) {
         const res = mCtrl.searchNearbyPoint(mousepoint.x - offset.left, mousepoint.y - offset.top, radius)
         if (res) result[mCtrl.name] = res
       })
-      if (Object.keys(result).length) setNearestPoint({ mousepoint, nearestPoint: result })
-      else setNearestPoint({ mousepoint })
+      if (Object.keys(result).length) setNearestPoint({ buttons: event.buttons, mousepoint, nearestPoint: result })
+      else setNearestPoint({ buttons: event.buttons, mousepoint })
     }
   }
 
