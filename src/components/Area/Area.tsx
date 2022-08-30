@@ -3,6 +3,7 @@ import { ChartProperties } from '../../types/chart'
 import './area.css'
 
 export const ChartContext = React.createContext<ChartProperties | null>(null)
+export const SizeContext = React.createContext<[number, number]>([0, 0])
 
 const Area: FC<PropsWithChildren> = ({ children }) => {
   const container = useRef<HTMLDivElement>(null)
@@ -22,24 +23,32 @@ const Area: FC<PropsWithChildren> = ({ children }) => {
       },
     },
   })
-  const [sizeCanvas, setResizeCanvas] = useState<[number, number] | null>(null)
+  const [sizeCanvas, setResizeCanvas] = useState<[number, number]>([0, 0])
 
   useEffect(() => {
     setProp((prev) => ({ ...prev, setProp, setResizeCanvas }))
+
+    return () => {
+      chartProperties.chart?.destroy()
+      delete chartProperties.chart
+      setProp({ ...chartProperties })
+    }
   }, [])
 
-  const childrenWithProps = React.Children.map(children, (child) => {
+  /*const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, { ...child.props, sizeCanvas })
     }
     return child
-  })
+  })*/
 
   return (
     <ChartContext.Provider value={chartProperties}>
-      <div ref={container} className="chart-container">
-        {childrenWithProps}
-      </div>
+      <SizeContext.Provider value={sizeCanvas}>
+        <div ref={container} className="chart-container">
+          {children}
+        </div>
+      </SizeContext.Provider>
     </ChartContext.Provider>
   )
 }

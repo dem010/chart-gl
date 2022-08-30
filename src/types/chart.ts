@@ -60,7 +60,7 @@ export interface ChartProperties {
   options: ChartOptions
   chart?: Chart
   setProp?: React.Dispatch<React.SetStateAction<ChartProperties>>
-  setResizeCanvas?: React.Dispatch<React.SetStateAction<[number, number] | null>>
+  setResizeCanvas?: React.Dispatch<React.SetStateAction<[number, number]>>
 }
 
 export interface AxisOptions {

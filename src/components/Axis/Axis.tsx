@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { AxisControlSplit } from '../../services/AxisControlSplit'
-import { ChartContext } from '../Area/Area'
+import { ChartContext, SizeContext } from '../Area/Area'
 import { AxisControlMerge } from '../../services/AxisControlMerge'
 import { AlignType, AxisStyle } from '../../types/chart'
 import { AxisControl } from '../../services/AxisControl'
@@ -11,7 +11,7 @@ export interface AxisProps {
   align?: AlignType
   /** минимум максимум оси */
   domain?: [number, number]
-  sizeCanvas?: [number, number]
+  //sizeCanvas?: [number, number]
   format?: (value: number) => string
   /** делить ли ось на серии (применимо только к оси Y) */
   split?: boolean
@@ -28,7 +28,7 @@ export interface AxisProps {
 const Axis: FC<AxisProps> = ({
   align = 'bottom',
   domain,
-  sizeCanvas,
+  //sizeCanvas,
   format,
   split = false,
   font = 'calibri, serif',
@@ -37,6 +37,7 @@ const Axis: FC<AxisProps> = ({
   tickOffset = 3,
 }) => {
   const chartProperties = useContext(ChartContext)
+  const sizeCanvas = useContext(SizeContext)
 
   const chart = chartProperties?.chart
   const series = chartProperties?.options.series
