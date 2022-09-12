@@ -4,8 +4,10 @@ import { resizeCanvasToDisplaySize } from '../utils/glUtils'
 import AxesMatricesCtrl from './AxesMatricesCtrl'
 import PanScaleChart from './PanScaleChart'
 import { ChartData } from './ChartData'
-import { ChartOptions, ChartProperties, ChartSeries, Series } from '../types/chart'
+import { ChartOptions, ChartProperties, ChartSeries, RefX, RefY, Series } from '../types/chart'
 import MatrixControl from './MatrixControl'
+import Overlay from './Overlay'
+import Cursor from './Cursor'
 
 export default class Chart {
   private m4 = M4
@@ -22,6 +24,8 @@ export default class Chart {
   protected positionAttributeLocation: number | null = null
   protected matrixLocation: WebGLUniformLocation | null = null
   protected colorUniformLocation: WebGLUniformLocation | null = null
+
+  protected cursor: Cursor | null = null
 
   public axesMatricesCtrl = new AxesMatricesCtrl(this)
   //private chartProperties: ChartProperties
@@ -102,7 +106,13 @@ export default class Chart {
     }
   }
 
-  setSeries(series: Series[]) {
+  /**
+   * Задать новые серии для графика
+   * @param series параметры серии
+   * @param savePrevMatrixState сохранить предыдущее состояние матриц для новой серии (сохранить положение графика для новых серий)
+   */
+  setSeries(series: Series[], savePrevMatrixState: boolean = false) {
+    //Если хотим сохранить положения графика (savePrevMatrixState === true), то копирую их для каждой оси
     //TODO: удалить предыдущии серии и матрицы к ним
     this.axesMatricesCtrl.clear()
     this.series = []
@@ -150,4 +160,26 @@ export default class Chart {
   }
 
   setData(data: Float32Array): void {}
+
+  /**
+   * Включить/отключить курсор
+   * @param {HTMLCanvasElement} canvas канвас Overlay
+   * @param set вкл/откл
+   */
+  setCursor(canvas: HTMLCanvasElement, set: boolean, color?: string, type?: RefX | RefY) {
+    if (this.options && !this.options.overlay) {
+      const overlay = Overlay.getInstance(canvas, this.options)
+      this.options.overlay = overlay
+    }
+    if (set && this.options.overlay) {
+      this.cursor = new Cursor(this.canvas, this.options.overlay, color, type)
+      this.options.overlay.setCursor(this.cursor)
+    } else {
+      this.cursor && this.cursor.destroy()
+      this.options.overlay?.removeCursor()
+      this.cursor = null
+    }
+    //this.options.overlay?.setCursor(type, color)
+    return this.options.overlay || null
+  }
 }

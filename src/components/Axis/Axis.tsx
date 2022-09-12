@@ -23,6 +23,8 @@ export interface AxisProps {
   color?: string
   /** Расстояние между подписью и делителем оси (3 по умолчанию)*/
   tickOffset?: number
+  /** сохранять текущий домен при переинициализации оси (оставлять тот что был после движения/масштабирования графика)*/
+  keepDomain?: boolean
 }
 
 const Axis: FC<AxisProps> = ({
@@ -35,6 +37,7 @@ const Axis: FC<AxisProps> = ({
   fontSize = 14,
   color = '#fff',
   tickOffset = 3,
+  keepDomain = false,
 }) => {
   const chartProperties = useContext(ChartContext)
   const sizeCanvas = useContext(SizeContext)
@@ -47,12 +50,17 @@ const Axis: FC<AxisProps> = ({
   useLayoutEffect(() => {
     //TODO: при смене align необходимо проверить нет ли оси с таким align. Если есть, то выдать ошибку и ничего не делать
     if (canvas.current && series && chart) {
-      if (axis) axis.destroy()
+      axis?.destroy()
+      if (keepDomain && axis) {
+        domain = axis?.getDomain()
+        console.log('domain', domain)
+      }
       setAxis(
         split
           ? new AxisControlSplit(canvas.current, {
               chartProperties,
               domain,
+              keepDomain,
               type: align === 'bottom' || align === 'top' ? 'x' : 'y',
               align,
               format,
@@ -61,6 +69,7 @@ const Axis: FC<AxisProps> = ({
           : new AxisControlMerge(canvas.current, {
               chartProperties,
               domain,
+              keepDomain,
               type: align === 'bottom' || align === 'top' ? 'x' : 'y',
               align,
               format,

@@ -8,7 +8,7 @@
 }
 
 .chart-gl-canvas,
-.chart-grid-canvas {
+.chart-overlay-canvas {
   position: relative;
   grid-column: 3;
   grid-row: 3;
@@ -17,7 +17,7 @@
   overflow: hidden;
   z-index: 1;
 }
-.chart-grid-canvas {
+.chart-overlay-canvas {
   pointer-events: none;
   z-index: 0;
 }

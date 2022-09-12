@@ -30,7 +30,13 @@ export default class MatrixControl {
   protected axisSeries: ChartSeries[] | null = null
   protected num: number = -1
 
-  constructor(public name: string, public chart: Chart, public data: ChartData, public label?: string) {
+  constructor(
+    public name: string,
+    public typeName: string,
+    public chart: Chart,
+    public data: ChartData,
+    public label?: string
+  ) {
     this.gl = chart.gl
   }
 

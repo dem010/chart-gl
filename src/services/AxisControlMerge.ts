@@ -8,8 +8,11 @@ export class AxisControlMerge extends AxisControl {
    * @param {HTMLCanvasElement} canvas
    * @param {[]} series
    */
-  constructor(canvas: HTMLCanvasElement, { align, type, domain, format, style, chartProperties }: AxisParameters) {
-    super(canvas, { align, type, domain, format, style, chartProperties })
+  constructor(
+    canvas: HTMLCanvasElement,
+    { align, type, domain, keepDomain, format, style, chartProperties }: AxisParameters
+  ) {
+    super(canvas, { align, type, domain, keepDomain, format, style, chartProperties })
 
     this.chartOptions?.axes.push(this)
     this.setOptionsParameters()
@@ -188,17 +191,21 @@ export class AxisControlMerge extends AxisControl {
     if (typeof translateX === 'number' && scaleX && type === 'x') {
       this.scale = [scaleX]
       this.min = [-translateX / this.scale[0] - originX / this.scale[0]]
-      this.max = [this.min[0] + width / this.scale[0]]
+      this.max = [this.min[0] + gl.canvas.width / this.scale[0]]
     }
     if (typeof translateY === 'number' && scaleY && type === 'y') {
       this.scale = [scaleY]
       this.min = [-translateY / this.scale[0] - (originY + gl.canvas.clientHeight / 2) / this.scale[0]]
-      this.max = [this.min[0] + height / this.scale[0]]
+      this.max = [this.min[0] + gl.canvas.height / this.scale[0]]
     }
     window.requestAnimationFrame(() => {
       this.tuneTickGenerator()
       this.drawAxis()
       this.chartOptions && this.chartOptions.overlay && this.chartOptions.overlay.update()
     })
+  }
+
+  getDomain(): [number, number] | undefined {
+    return [this.min[0], this.max[0]]
   }
 }

@@ -21,12 +21,14 @@ export default class AxesMatricesCtrl {
   private xAxes: IXAxesMC = { top: [], bottom: [] }
   series: INamedMC = {}
 
+  private memAll: MatrixControl[] = []
+
   constructor(chart: Chart) {
     this.chart = chart
   }
 
   add({ refX, refY, id, data, label }: ChartSeries) {
-    const mCtrl = new MatrixControl(refX + refY + id, this.chart, data, label)
+    const mCtrl = new MatrixControl(refX + refY + id, refX + refY, this.chart, data, label)
     this.series[refX + refY + id] = mCtrl
     this.yAxes[refY].push(mCtrl)
     this.xAxes[refX].push(mCtrl)
@@ -58,5 +60,12 @@ export default class AxesMatricesCtrl {
     this.yAxes = { left: [], right: [] }
     this.xAxes = { top: [], bottom: [] }
     this.series = {}
+  }
+
+  save() {
+    this.memAll = this.all
+  }
+  clearMem() {
+    this.memAll = []
   }
 }

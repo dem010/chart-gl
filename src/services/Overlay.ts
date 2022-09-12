@@ -1,5 +1,6 @@
-import { ChartOptions } from '../types/chart'
+import { ChartOptions, RefX, RefY } from '../types/chart'
 import { AxisControl } from './AxisControl'
+import Cursor from './Cursor'
 
 export default class Overlay {
   static instance: Overlay
@@ -11,6 +12,8 @@ export default class Overlay {
   private ctx: CanvasRenderingContext2D | null
   private axes: AxisControl[] = []
   private color: string = '#555'
+
+  protected cursor: Cursor | null = null
 
   constructor(private canvas: HTMLCanvasElement, private opt: ChartOptions) {
     //this.canvas = canvas.current
@@ -42,13 +45,19 @@ export default class Overlay {
   }
 
   draw() {
-    if (!this.ctx) return
+    window.requestAnimationFrame(
+      (() => {
+        if (!this.ctx) return
 
-    const ctx = this.ctx
-    const { width, height } = this.canvas
-    ctx.clearRect(0, 0, width, height)
+        const ctx = this.ctx
+        const { width, height } = this.canvas
+        ctx.clearRect(0, 0, width, height)
 
-    this.drawGrid()
+        this.drawGrid()
+        //this.drawCursor()
+        this.cursor && this.cursor.draw(ctx, height)
+      }).bind(this)
+    )
   }
 
   drawGrid() {
@@ -101,6 +110,34 @@ export default class Overlay {
     //debugger
     //console.log('gridUpdate')
     this.draw()
+  }
+
+  setXCursor(x: number) {
+    window.requestAnimationFrame(
+      (() => {
+        this.draw()
+      }).bind(this)
+    )
+  }
+
+  //! перенес в Chart
+  /**
+   * Включить/отключить курсор
+   * @param {HTMLCanvasElement} canvas канвас Overlay
+   * @param set вкл/откл
+   */
+  /*setCursor(set: boolean, color?: string, type?: RefX | RefY) {
+    if (set) this.cursor = new Cursor(this.canvas, this, color, type)
+    else {
+      this.cursor && this.cursor.destroy()
+      this.cursor = null
+    }
+  }*/
+  setCursor(cursor: Cursor) {
+    this.cursor = cursor
+  }
+  removeCursor() {
+    this.cursor = null
   }
 
   resize(size?: [number, number]) {

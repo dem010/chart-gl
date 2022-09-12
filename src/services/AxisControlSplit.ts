@@ -3,8 +3,11 @@ import { subAlpha } from '../utils/subAlpha'
 import { AxisControl, YAXIS_SPACING } from './AxisControl'
 
 export class AxisControlSplit extends AxisControl {
-  constructor(canvas: HTMLCanvasElement, { align, type, domain, format, style, chartProperties }: AxisParameters) {
-    super(canvas, { align, type, domain, format, style, chartProperties })
+  constructor(
+    canvas: HTMLCanvasElement,
+    { align, type, domain, keepDomain, format, style, chartProperties }: AxisParameters
+  ) {
+    super(canvas, { align, type, domain, keepDomain, format, style, chartProperties })
 
     this.chartOptions?.axes.push(this)
 

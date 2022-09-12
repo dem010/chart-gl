@@ -85,6 +85,7 @@ export interface AxisStyle {
 export interface AxisParameters {
   chartProperties: ChartProperties
   domain?: [number, number]
+  keepDomain: boolean
   type: AxisTypeType
   align: AlignType
   style: AxisStyle

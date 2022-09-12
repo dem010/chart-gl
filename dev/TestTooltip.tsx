@@ -38,7 +38,7 @@ const TestTooltip = () => {
         style={{
           position: 'absolute',
           top: mousepoint.y - 10,
-          left: mousepoint.x + 20,
+          left: mousepoint.x + 20 + 100 > window.innerWidth ? mousepoint.x - 100 : mousepoint.x + 20,
           padding: 8,
           background: '#fff',
           zIndex: 1,

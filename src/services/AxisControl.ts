@@ -28,10 +28,7 @@ export class AxisControl {
    * @param {HTMLCanvasElement} canvas
    * @param {AxisParameters[]} axisParameters
    */
-  constructor(
-    canvas: HTMLCanvasElement,
-    { align, type, domain, format, chartProperties, split, style }: AxisParameters
-  ) {
+  constructor(canvas: HTMLCanvasElement, { align, type, domain, format, chartProperties, style }: AxisParameters) {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
     this.type = type
@@ -214,7 +211,7 @@ export class AxisControl {
       this.chartOptions.overlay = overlay
       return overlay
     }
-    return null
+    return undefined
   }
 
   tuneTickGenerator() {}
@@ -263,6 +260,9 @@ export class AxisControl {
   }
 
   update() {}
+  getDomain(): [number, number] | undefined {
+    return undefined
+  }
 
   protected getFont() {
     if (this.axisOptions) {
