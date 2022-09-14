@@ -1,7 +1,7 @@
 import { AxisControl } from '../services/AxisControl'
 import Chart from '../services/Chart'
 import { ChartData } from '../services/ChartData'
-import Overlay from '../services/Overlay'
+import OverlayCtrl from '../services/OverlayCtrl'
 
 export type RefX = 'top' | 'bottom'
 export type RefY = 'left' | 'right'
@@ -53,7 +53,7 @@ export interface ChartOptions {
     bottomAxis: string
   }
   series?: ChartSeries[]
-  overlay?: Overlay
+  overlay?: OverlayCtrl
 }
 
 export interface ChartProperties {

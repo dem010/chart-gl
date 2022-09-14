@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Area, Axis, Overlay, Lines, Title } from '../src'
+import { Area, Axis, Overlay, Lines, Title, Grid, Cursor } from '../src'
 import { Series } from '../src/types/chart'
 import { genData2, genData3 } from './genData'
 import './app.css'
@@ -50,6 +50,8 @@ function App() {
   const handleChangeSeries = () => setChangeSer((prev) => (prev === 1 ? 2 : 1))
   const handleChangeCursor = () => setCursor((prev) => !prev)
 
+  const cursorFormatter = (value: number) => `value = ${Number(value.toFixed(3))}`
+
   return (
     <div className="chart-wrapper">
       <Area>
@@ -65,7 +67,10 @@ function App() {
         <Axis domain={[2000, 4000]} keepDomain />
         <Axis align="left" split={split} />
         <Lines series={changeSer === 1 ? series : series2} />
-        <Overlay gridRefY="left" cursor={cursor} cursorColor="#88ccff66" />
+        <Overlay>
+          <Grid refY="left" />
+          <Cursor enabled={cursor} color="#88ccff66" bottom_formatter={cursorFormatter} />
+        </Overlay>
         <TestTooltip />
       </Area>
       <div className="align-buttons">

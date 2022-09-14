@@ -1,6 +1,6 @@
 import { AxisOptions, AxisParameters, AxisTypeType, ChartOptions, ChartSeries, ITick } from '../types/chart'
 import Chart from './Chart'
-import Overlay from './Overlay'
+import OverlayCtrl from './OverlayCtrl'
 
 /** отступ от границ области графика для оси Y если не задан domain */
 export const YAXIS_SPACING = 0.07 //2% от минимального и максимального значения графика //!возможно надо делать от максимума минимума видимой области или параметризовать
@@ -46,7 +46,7 @@ export class AxisControl {
     this.chart?.axesMatricesCtrl.forEach((mCtrl) => mCtrl.reset(this.type), this.type, this.axisOptions.align)
     this.chart = undefined
     //удаляю ось из оверлея
-    this.chartOptions?.overlay?.removeAxis(this)
+    //this.chartOptions?.overlay?.removeAxis(this)
     //удаляю ось из массива осей графика
     if (this.chartOptions && this.chartOptions.axes.includes(this)) {
       this.chartOptions.axes.splice(this.chartOptions.axes.indexOf(this), 1)
@@ -195,23 +195,6 @@ export class AxisControl {
         this.chartOptions?.overlay?.resize(size)
       })
     }
-  }
-
-  /**
-   * Создать сетку
-   * @param {HTMLCanvasElement} canvas канвас
-   * @param {string} color цвет сетки
-   * @returns
-   */
-  createGrid(canvas: HTMLCanvasElement, color: string) {
-    if (this.chartOptions) {
-      const overlay = Overlay.getInstance(canvas, this.chartOptions)
-      overlay.addAxis(this)
-      overlay.setColor(color)
-      this.chartOptions.overlay = overlay
-      return overlay
-    }
-    return undefined
   }
 
   tuneTickGenerator() {}
